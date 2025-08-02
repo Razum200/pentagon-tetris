@@ -1,14 +1,11 @@
-// Серверная часть для Telegram бота (НЕ ДЛЯ ПУБЛИКАЦИИ!)
-// Этот файл должен быть только на твоем сервере
-
+// Серверная часть для Telegram бота
 const express = require('express');
 const path = require('path');
+const config = require('./config');
 
 const app = express();
-const PORT = process.env.PORT || 3000;
-
-// ВАЖНО: Токен должен быть в переменных окружения!
-const BOT_TOKEN = process.env.BOT_TOKEN; // Твой токен сюда НЕ ВСТАВЛЯЙ!
+const PORT = config.port;
+const BOT_TOKEN = config.botToken;
 
 // Middleware
 app.use(express.json());

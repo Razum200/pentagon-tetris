@@ -1,9 +1,8 @@
-# Переменные окружения (ТОКЕНЫ И ПАРОЛИ)
+# Переменные окружения
 .env
 .env.local
 .env.production
 .env.staging
-config.js
 
 # Node.js
 node_modules/
