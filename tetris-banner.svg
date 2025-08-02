@@ -1,0 +1,126 @@
+<svg width="640" height="360" viewBox="0 0 640 360" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Фон с градиентом -->
+  <defs>
+    <linearGradient id="backgroundGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1e3c72;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#2a5298;stop-opacity:1" />
+    </linearGradient>
+    
+    <!-- Градиенты для пятиугольников -->
+    <linearGradient id="pentagon1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#ff6b6b;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#ff8e8e;stop-opacity:1" />
+    </linearGradient>
+    
+    <linearGradient id="pentagon2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#4ecdc4;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#6ee0d7;stop-opacity:1" />
+    </linearGradient>
+    
+    <linearGradient id="pentagon3" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#45b7d1;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#67c5db;stop-opacity:1" />
+    </linearGradient>
+    
+    <linearGradient id="pentagon4" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#feca57;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#fed876;stop-opacity:1" />
+    </linearGradient>
+    
+    <linearGradient id="pentagon5" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#ff9ff3;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#ffb3f6;stop-opacity:1" />
+    </linearGradient>
+    
+    <!-- Градиент для текста -->
+    <linearGradient id="textGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#ff6b6b;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#4ecdc4;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#45b7d1;stop-opacity:1" />
+    </linearGradient>
+    
+    <!-- Тень -->
+    <filter id="dropshadow" x="-50%" y="-50%" width="200%" height="200%">
+      <feDropShadow dx="4" dy="4" stdDeviation="6" flood-color="rgba(0,0,0,0.3)"/>
+    </filter>
+  </defs>
+  
+  <!-- Основной фон -->
+  <rect width="640" height="360" fill="url(#backgroundGradient)"/>
+  
+  <!-- Декоративные элементы - точки -->
+  <circle cx="80" cy="60" r="3" fill="rgba(255,255,255,0.1)"/>
+  <circle cx="560" cy="80" r="2" fill="rgba(255,255,255,0.1)"/>
+  <circle cx="600" cy="300" r="4" fill="rgba(255,255,255,0.1)"/>
+  <circle cx="40" cy="280" r="2" fill="rgba(255,255,255,0.1)"/>
+  <circle cx="120" cy="320" r="3" fill="rgba(255,255,255,0.1)"/>
+  
+  <!-- Сетка игрового поля (слабая) -->
+  <g opacity="0.1">
+    <line x1="400" y1="80" x2="400" y2="280" stroke="white" stroke-width="1"/>
+    <line x1="440" y1="80" x2="440" y2="280" stroke="white" stroke-width="1"/>
+    <line x1="480" y1="80" x2="480" y2="280" stroke="white" stroke-width="1"/>
+    <line x1="520" y1="80" x2="520" y2="280" stroke="white" stroke-width="1"/>
+    
+    <line x1="380" y1="100" x2="540" y2="100" stroke="white" stroke-width="1"/>
+    <line x1="380" y1="140" x2="540" y2="140" stroke="white" stroke-width="1"/>
+    <line x1="380" y1="180" x2="540" y2="180" stroke="white" stroke-width="1"/>
+    <line x1="380" y1="220" x2="540" y2="220" stroke="white" stroke-width="1"/>
+    <line x1="380" y1="260" x2="540" y2="260" stroke="white" stroke-width="1"/>
+  </g>
+  
+  <!-- Пятиугольники на игровом поле -->
+  <!-- Первый ряд -->
+  <polygon points="420,140 440,125 450,145 430,165 410,145" fill="url(#pentagon1)" stroke="white" stroke-width="2" filter="url(#dropshadow)"/>
+  <polygon points="460,140 480,125 490,145 470,165 450,145" fill="url(#pentagon2)" stroke="white" stroke-width="2" filter="url(#dropshadow)"/>
+  <polygon points="500,140 520,125 530,145 510,165 490,145" fill="url(#pentagon3)" stroke="white" stroke-width="2" filter="url(#dropshadow)"/>
+  
+  <!-- Второй ряд -->
+  <polygon points="420,180 440,165 450,185 430,205 410,185" fill="url(#pentagon4)" stroke="white" stroke-width="2" filter="url(#dropshadow)"/>
+  <polygon points="460,180 480,165 490,185 470,205 450,185" fill="url(#pentagon5)" stroke="white" stroke-width="2" filter="url(#dropshadow)"/>
+  
+  <!-- Третий ряд -->
+  <polygon points="420,220 440,205 450,225 430,245 410,225" fill="url(#pentagon2)" stroke="white" stroke-width="2" filter="url(#dropshadow)"/>
+  <polygon points="460,220 480,205 490,225 470,245 450,225" fill="url(#pentagon1)" stroke="white" stroke-width="2" filter="url(#dropshadow)"/>
+  <polygon points="500,220 520,205 530,225 510,245 490,225" fill="url(#pentagon4)" stroke="white" stroke-width="2" filter="url(#dropshadow)"/>
+  
+  <!-- Падающая фигура (T-образная из пятиугольников) -->
+  <g opacity="0.9">
+    <polygon points="460,100 480,85 490,105 470,125 450,105" fill="url(#pentagon3)" stroke="white" stroke-width="2" filter="url(#dropshadow)"/>
+    <polygon points="420,120 440,105 450,125 430,145 410,125" fill="url(#pentagon3)" stroke="white" stroke-width="2" filter="url(#dropshadow)"/>
+    <polygon points="500,120 520,105 530,125 510,145 490,125" fill="url(#pentagon3)" stroke="white" stroke-width="2" filter="url(#dropshadow)"/>
+  </g>
+  
+  <!-- Большие декоративные пятиугольники слева -->
+  <g opacity="0.3">
+    <polygon points="100,120 140,95 155,140 125,185 75,140" fill="url(#pentagon1)" stroke="white" stroke-width="3"/>
+    <polygon points="150,200 190,175 205,220 175,265 125,220" fill="url(#pentagon2)" stroke="white" stroke-width="3"/>
+    <polygon points="80,240 120,215 135,260 105,305 55,260" fill="url(#pentagon5)" stroke="white" stroke-width="3"/>
+  </g>
+  
+  <!-- Заголовок -->
+  <text x="320" y="50" font-family="Arial, sans-serif" font-size="42" font-weight="bold" text-anchor="middle" fill="url(#textGradient)" filter="url(#dropshadow)">
+    ПЯТИУГОЛЬНЫЙ
+  </text>
+  
+  <text x="320" y="95" font-family="Arial, sans-serif" font-size="48" font-weight="bold" text-anchor="middle" fill="url(#textGradient)" filter="url(#dropshadow)">
+    ТЕТРИС
+  </text>
+  
+  <!-- Подзаголовок -->
+  <text x="320" y="315" font-family="Arial, sans-serif" font-size="18" font-weight="normal" text-anchor="middle" fill="rgba(255,255,255,0.8)">
+    Уникальный Тетрис с пятиугольными блоками
+  </text>
+  
+  <text x="320" y="340" font-family="Arial, sans-serif" font-size="16" font-weight="normal" text-anchor="middle" fill="rgba(255,255,255,0.6)">
+    🌪️ Режим ХАОС • 🎮 Мобильные кнопки • 📱 Telegram MiniApp
+  </text>
+  
+  <!-- Декоративные эффекты -->
+  <g opacity="0.2">
+    <!-- Звездочки -->
+    <polygon points="580,120 585,110 590,120 595,115 590,125 585,130 580,125 575,115" fill="white"/>
+    <polygon points="60,80 63,75 66,80 69,77 66,83 63,86 60,83 57,77" fill="white"/>
+    <polygon points="580,250 583,245 586,250 589,247 586,253 583,256 580,253 577,247" fill="white"/>
+  </g>
+</svg>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#2a5298">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Пятиугольный Тетрис</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="manifest" href="manifest.json">
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+</head>
+<body>
+    <div class="game-container">
+        <h1>Пятиугольный Тетрис</h1>
+        <div class="game-settings">
+            <div class="difficulty-select">
+                <label for="difficulty">Сложность:</label>
+                <select id="difficulty">
+                    <option value="easy">Легко</option>
+                    <option value="normal" selected>Нормально</option>
+                    <option value="hard">Сложно</option>
+                    <option value="extreme">Экстрим</option>
+                </select>
+            </div>
+            <div class="game-mode">
+                <label>
+                    <input type="checkbox" id="chaosMode"> Режим "Хаос"
+                </label>
+                <small style="display: block; color: #ccc; margin-top: 5px;">
+                    Пятиугольники искажаются и их сложнее складывать!
+                </small>
+            </div>
+        </div>
+        
+        <div class="game-info">
+            <div class="score">Очки: <span id="score">0</span></div>
+            <div class="level">Уровень: <span id="level">1</span></div>
+            <div class="lines">Линии: <span id="lines">0</span></div>
+        </div>
+        <div class="game-area">
+            <canvas id="gameCanvas" width="400" height="640"></canvas>
+            <div class="next-piece">
+                <h3>Следующая фигура:</h3>
+                <canvas id="nextCanvas" width="120" height="120"></canvas>
+            </div>
+        </div>
+        <div class="controls">
+            <h3>Управление:</h3>
+            <p>← → : Движение влево/вправо</p>
+            <p>↓ : Ускорить падение</p>
+            <p>Пробел : Поворот фигуры</p>
+            <p>Escape : Пауза</p>
+            <div id="chaosInfo" style="margin-top: 10px; padding: 10px; background: rgba(255, 100, 100, 0.2); border-radius: 5px; display: none;">
+                <strong>🌪️ Режим ХАОС активен!</strong><br>
+                <small>• Блоки вращаются и сдвигаются<br>
+                • Ряды очищаются при 80% заполнении<br>
+                • Стабилизированные блоки светятся зелёным<br>
+                • Бонус +50% к очкам!</small>
+            </div>
+        </div>
+        
+        <div class="game-buttons">
+            <button id="startBtn">🎮 Начать игру</button>
+            <button id="pauseBtn">⏸️ Пауза</button>
+            <button id="shareBtn" style="display: none;">📤 Поделиться результатом</button>
+        </div>
+        
+        <div class="mobile-controls" id="mobileControls" style="display: none;">
+            <div class="control-row">
+                <button id="moveLeft">←</button>
+                <button id="rotate">🔄</button>
+                <button id="moveRight">→</button>
+            </div>
+            <div class="control-row">
+                <button id="softDrop">↓</button>
+                <button id="pause">⏸️</button>
+                <button id="hardDrop">⬇️</button>
+            </div>
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
