@@ -540,8 +540,8 @@ class PentagonTetris {
         this.nextCtx.fillRect(0, 0, this.nextCanvas.width, this.nextCanvas.height);
         
         if (this.nextPiece) {
-            // В полноэкранном режиме используем очень маленький размер блока
-            const blockSize = this.isFullscreen ? 10 : 25;
+            // В полноэкранном режиме используем маленький размер блока
+            const blockSize = this.isFullscreen ? 12 : 25;
             const offsetX = (this.nextCanvas.width - this.nextPiece.shape[0].length * blockSize) / 2;
             const offsetY = (this.nextCanvas.height - this.nextPiece.shape.length * blockSize) / 2;
             
@@ -1059,16 +1059,16 @@ class PentagonTetris {
         this.canvas.width = this.BOARD_WIDTH * this.BLOCK_SIZE;
         this.canvas.height = this.BOARD_HEIGHT * this.BLOCK_SIZE;
         
-        // Маленький canvas для следующей фигуры в полноэкранном режиме
-        this.nextCanvas.width = 50;
-        this.nextCanvas.height = 50;
+        // Canvas для следующей фигуры в полноэкранном режиме
+        this.nextCanvas.width = 60;
+        this.nextCanvas.height = 60;
     }
     
     showFullscreenHint() {
         // Создаем подсказку о выходе из полноэкранного режима
         const hint = document.createElement('div');
         hint.className = 'fullscreen-exit-hint';
-        hint.innerHTML = '📱 Полноэкранный режим<br><small>Нажми кнопку "Выйти" или ESC для выхода</small>';
+        hint.innerHTML = '🌟 ПОЛНОЭКРАННЫЙ РЕЖИМ 🌟<br><br>✨ Наслаждайся игрой на весь экран!<br><br>🚪 Выход: кнопка "Выйти" или ESC';
         document.body.appendChild(hint);
         
         hint.style.display = 'block';
