@@ -142,6 +142,36 @@ h1 {
     max-width: 300px;
     margin-left: auto;
     margin-right: auto;
+    display: none; /* Скрыто по умолчанию */
+}
+
+.controls.show {
+    display: block;
+}
+
+.help-button {
+    background: var(--tg-theme-button-color, #007AFF);
+    color: var(--tg-theme-button-text-color, white);
+    border: none;
+    border-radius: 10px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    margin: 10px auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: background-color 0.3s ease;
+    max-width: 200px;
+}
+
+.help-button:hover {
+    background: var(--tg-theme-button-color, #0051D5);
+}
+
+.help-button:active {
+    transform: scale(0.98);
 }
 
 .controls h3 {
@@ -332,12 +362,12 @@ button:disabled {
 .fullscreen-mode .game-area {
     position: relative !important;
     display: flex !important;
-    justify-content: space-between !important;
+    justify-content: center !important;
     align-items: flex-start !important;
     width: 100% !important;
     height: 100% !important;
-    max-width: 800px !important;
-    gap: 20px !important;
+    max-width: 900px !important;
+    gap: 15px !important;
 }
 
 .fullscreen-mode #gameCanvas {
@@ -353,14 +383,15 @@ button:disabled {
 .fullscreen-mode .game-sidebar {
     display: flex !important;
     flex-direction: column !important;
-    width: 200px !important;
+    width: 180px !important;
     height: calc(100vh - 80px) !important;
-    background: rgba(0, 0, 0, 0.8) !important;
-    border: 2px solid #333 !important;
+    background: rgba(0, 0, 0, 0.9) !important;
+    border: 1px solid #444 !important;
     border-radius: 8px !important;
-    padding: 15px !important;
+    padding: 12px !important;
     color: white !important;
-    font-size: 14px !important;
+    font-size: 13px !important;
+    flex-shrink: 0 !important;
     overflow-y: auto !important;
 }
 
@@ -397,7 +428,8 @@ button:disabled {
 
 .fullscreen-mode .game-settings,
 .fullscreen-mode .game-info,
-.fullscreen-mode .controls {
+.fullscreen-mode .controls,
+.fullscreen-mode .help-button {
     display: none !important;
 }
 

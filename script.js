@@ -732,6 +732,12 @@ class PentagonTetris {
             fullscreenBtn.addEventListener('click', () => this.toggleFullscreen());
         }
         
+        // Кнопка помощи
+        const helpBtn = document.getElementById('helpBtn');
+        if (helpBtn) {
+            helpBtn.addEventListener('click', () => this.toggleHelp());
+        }
+        
         // Мобильные кнопки управления
         this.setupMobileControls();
         
@@ -960,6 +966,19 @@ class PentagonTetris {
         this.longPressActive = false;
     }
     
+    toggleHelp() {
+        const controls = document.querySelector('.controls');
+        const helpBtn = document.getElementById('helpBtn');
+        
+        if (controls.classList.contains('show')) {
+            controls.classList.remove('show');
+            helpBtn.innerHTML = '❓ Помощь';
+        } else {
+            controls.classList.add('show');
+            helpBtn.innerHTML = '❌ Закрыть';
+        }
+    }
+    
     toggleFullscreen() {
         const gameContainer = document.querySelector('.game-container');
         const fullscreenBtn = document.getElementById('fullscreenBtn');
@@ -1052,15 +1071,15 @@ class PentagonTetris {
         const screenWidth = window.innerWidth;
         const screenHeight = window.innerHeight;
         
-        // Максимальные размеры для игрового поля (почти весь экран)
-        const maxCanvasWidth = screenWidth - 40; // Отступы по краям
-        const maxCanvasHeight = screenHeight - 150; // Отступы сверху и снизу для кнопок
+        // Учитываем место для боковой панели (200px) + отступы
+        const maxCanvasWidth = screenWidth - 220; // Ширина для canvas
+        const maxCanvasHeight = screenHeight - 80; // Высота для canvas
         
-        // Вычисляем размер блока для максимального использования экрана
+        // Вычисляем размер блока
         const blockSizeByWidth = Math.floor(maxCanvasWidth / this.BOARD_WIDTH);
         const blockSizeByHeight = Math.floor(maxCanvasHeight / this.BOARD_HEIGHT);
         
-        // Используем максимально возможный размер блока
+        // Используем оптимальный размер блока
         this.BLOCK_SIZE = Math.min(blockSizeByWidth, blockSizeByHeight);
         
         // Устанавливаем размеры главного canvas
