@@ -319,9 +319,9 @@ button:disabled {
     left: 0 !important;
     width: 100vw !important;
     height: 100vh !important;
-    background: linear-gradient(135deg, #0f0f23, #1a1a2e, #16213e) !important;
+    background: linear-gradient(135deg, #0a0a1a, #1a1a2e) !important;
     z-index: 9999 !important;
-    padding: 0 !important;
+    padding: 10px !important;
     box-sizing: border-box !important;
     overflow: hidden !important;
     display: flex !important;
@@ -332,141 +332,155 @@ button:disabled {
 .fullscreen-mode .game-area {
     position: relative !important;
     display: flex !important;
-    justify-content: center !important;
-    align-items: center !important;
+    justify-content: space-between !important;
+    align-items: flex-start !important;
     width: 100% !important;
     height: 100% !important;
-    padding: 20px !important;
-    box-sizing: border-box !important;
+    max-width: 800px !important;
+    gap: 20px !important;
 }
 
 .fullscreen-mode #gameCanvas {
-    max-width: calc(100vw - 40px) !important;
-    max-height: calc(100vh - 40px) !important;
+    height: calc(100vh - 80px) !important;
     width: auto !important;
-    height: auto !important;
-    border: 3px solid #00d4ff !important;
-    border-radius: 15px !important;
-    box-shadow: 
-        0 0 30px rgba(0, 212, 255, 0.3),
-        0 0 60px rgba(0, 212, 255, 0.1),
-        inset 0 0 0 1px rgba(255, 255, 255, 0.1) !important;
-    background: rgba(0, 0, 0, 0.3) !important;
+    border: 2px solid #333 !important;
+    border-radius: 8px !important;
+    background: #000 !important;
+    flex-shrink: 0 !important;
+}
+
+/* Боковая панель в полноэкранном режиме */
+.fullscreen-mode .game-sidebar {
+    display: flex !important;
+    flex-direction: column !important;
+    width: 200px !important;
+    height: calc(100vh - 80px) !important;
+    background: rgba(0, 0, 0, 0.8) !important;
+    border: 2px solid #333 !important;
+    border-radius: 8px !important;
+    padding: 15px !important;
+    color: white !important;
+    font-size: 14px !important;
+    overflow-y: auto !important;
 }
 
 .fullscreen-mode .next-piece {
-    position: absolute !important;
-    top: 30px !important;
-    right: 30px !important;
-    min-width: auto !important;
-    width: 90px !important;
-    height: 90px !important;
-    background: linear-gradient(135deg, rgba(0, 0, 0, 0.9), rgba(26, 26, 46, 0.9)) !important;
-    border: 2px solid #00d4ff !important;
-    border-radius: 15px !important;
-    padding: 8px !important;
-    z-index: 1000 !important;
-    box-shadow: 
-        0 0 20px rgba(0, 212, 255, 0.3),
-        inset 0 0 0 1px rgba(255, 255, 255, 0.1) !important;
-    backdrop-filter: blur(10px) !important;
+    position: relative !important;
+    top: auto !important;
+    right: auto !important;
+    width: 100% !important;
+    height: auto !important;
+    background: rgba(20, 20, 40, 0.8) !important;
+    border: 1px solid #444 !important;
+    border-radius: 5px !important;
+    padding: 10px !important;
+    margin-bottom: 15px !important;
 }
 
 .fullscreen-mode .next-piece h3 {
-    font-size: 0.75em !important;
-    margin: 0 0 5px 0 !important;
+    font-size: 0.9em !important;
+    margin: 0 0 8px 0 !important;
     text-align: center !important;
-    color: #00d4ff !important;
+    color: #ccc !important;
     font-weight: bold !important;
-    text-shadow: 0 0 10px rgba(0, 212, 255, 0.5) !important;
 }
 
 .fullscreen-mode .next-piece #nextCanvas {
-    width: 60px !important;
-    height: 60px !important;
+    width: 80px !important;
+    height: 80px !important;
     margin: 0 auto !important;
     display: block !important;
-    border-radius: 8px !important;
-    background: rgba(0, 0, 0, 0.5) !important;
+    border: 1px solid #555 !important;
+    border-radius: 3px !important;
+    background: #000 !important;
 }
 
 .fullscreen-mode .game-settings,
-.fullscreen-mode .game-info {
+.fullscreen-mode .game-info,
+.fullscreen-mode .controls {
     display: none !important;
 }
 
-.fullscreen-mode .controls {
-    display: none !important;
+.fullscreen-mode .game-stats {
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    background: rgba(20, 20, 40, 0.8) !important;
+    border: 1px solid #444 !important;
+    border-radius: 5px !important;
+    padding: 10px !important;
+    margin-bottom: 15px !important;
+    min-width: auto !important;
+    width: 100% !important;
+}
+
+.fullscreen-mode .game-stats p {
+    margin: 5px 0 !important;
+    font-weight: bold !important;
+    font-size: 0.9em !important;
+    display: flex !important;
+    justify-content: space-between !important;
+}
+
+.fullscreen-mode .game-stats span {
+    color: #00ff88 !important;
 }
 
 .fullscreen-mode .mobile-controls {
     display: block !important;
     position: fixed !important;
-    bottom: 20px !important;
-    left: 20px !important;
-    right: 20px !important;
+    bottom: 10px !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    width: auto !important;
     margin: 0 !important;
-    background: linear-gradient(135deg, rgba(0, 0, 0, 0.9), rgba(26, 26, 46, 0.9)) !important;
-    border: 2px solid #00d4ff !important;
-    border-radius: 20px !important;
-    padding: 15px !important;
-    box-shadow: 
-        0 0 30px rgba(0, 212, 255, 0.3),
-        inset 0 0 0 1px rgba(255, 255, 255, 0.1) !important;
-    backdrop-filter: blur(15px) !important;
+    background: rgba(0, 0, 0, 0.8) !important;
+    border: 1px solid #333 !important;
+    border-radius: 8px !important;
+    padding: 8px !important;
 }
 
 .fullscreen-mode .mobile-controls button {
-    background: linear-gradient(135deg, rgba(0, 0, 0, 0.6), rgba(26, 26, 46, 0.6)) !important;
-    border: 2px solid #00d4ff !important;
-    border-radius: 12px !important;
+    background: rgba(40, 40, 40, 0.9) !important;
+    border: 1px solid #555 !important;
+    border-radius: 4px !important;
     color: white !important;
-    font-weight: bold !important;
-    text-shadow: 0 0 5px rgba(0, 212, 255, 0.5) !important;
-    box-shadow: 
-        0 0 10px rgba(0, 212, 255, 0.2),
-        inset 0 0 0 1px rgba(255, 255, 255, 0.1) !important;
-    transition: all 0.2s ease !important;
+    font-weight: normal !important;
+    font-size: 16px !important;
+    width: 40px !important;
+    height: 40px !important;
+    margin: 2px !important;
+    padding: 0 !important;
 }
 
 .fullscreen-mode .mobile-controls button:active {
-    background: linear-gradient(135deg, rgba(0, 212, 255, 0.3), rgba(26, 26, 46, 0.8)) !important;
-    box-shadow: 
-        0 0 20px rgba(0, 212, 255, 0.5),
-        inset 0 0 0 1px rgba(255, 255, 255, 0.2) !important;
+    background: rgba(80, 80, 80, 0.9) !important;
     transform: scale(0.95) !important;
 }
 
 .fullscreen-mode .game-buttons {
     position: fixed !important;
-    top: 30px !important;
-    right: 150px !important;
+    top: 10px !important;
+    right: 10px !important;
     flex-direction: row !important;
-    gap: 10px !important;
+    gap: 5px !important;
     z-index: 1001 !important;
 }
 
 .fullscreen-mode .game-buttons button {
-    padding: 10px 15px !important;
-    font-size: 0.8em !important;
-    background: linear-gradient(135deg, rgba(0, 0, 0, 0.8), rgba(26, 26, 46, 0.8)) !important;
-    border: 2px solid #00d4ff !important;
-    border-radius: 10px !important;
-    color: white !important;
-    font-weight: bold !important;
-    text-shadow: 0 0 5px rgba(0, 212, 255, 0.5) !important;
-    box-shadow: 
-        0 0 15px rgba(0, 212, 255, 0.3),
-        inset 0 0 0 1px rgba(255, 255, 255, 0.1) !important;
-    backdrop-filter: blur(10px) !important;
-    transition: all 0.3s ease !important;
+    padding: 6px 10px !important;
+    font-size: 0.75em !important;
+    background: rgba(0, 0, 0, 0.7) !important;
+    border: 1px solid #333 !important;
+    border-radius: 4px !important;
+    color: #ccc !important;
+    font-weight: normal !important;
+    min-width: 60px !important;
 }
 
 .fullscreen-mode .game-buttons button:hover {
-    background: linear-gradient(135deg, rgba(0, 212, 255, 0.2), rgba(26, 26, 46, 0.9)) !important;
-    box-shadow: 
-        0 0 25px rgba(0, 212, 255, 0.5),
-        inset 0 0 0 1px rgba(255, 255, 255, 0.2) !important;
+    background: rgba(40, 40, 40, 0.8) !important;
+    color: white !important;
 }
 
 .fullscreen-mode .game-stats {

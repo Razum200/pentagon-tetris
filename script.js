@@ -7,6 +7,8 @@ class PentagonTetris {
         this.ctx = this.canvas.getContext('2d');
         this.nextCanvas = document.getElementById('nextCanvas');
         this.nextCtx = this.nextCanvas.getContext('2d');
+        this.nextCanvasFS = document.getElementById('nextCanvasFS');
+        this.nextCtxFS = this.nextCanvasFS ? this.nextCanvasFS.getContext('2d') : null;
         
         this.BOARD_WIDTH = 10;
         this.BOARD_HEIGHT = 16;
@@ -536,20 +538,26 @@ class PentagonTetris {
     }
     
     drawNextPiece() {
-        this.nextCtx.fillStyle = 'rgba(0, 0, 0, 0.8)';
-        this.nextCtx.fillRect(0, 0, this.nextCanvas.width, this.nextCanvas.height);
+        // Выбираем правильный canvas в зависимости от режима
+        const canvas = this.isFullscreen ? this.nextCanvasFS : this.nextCanvas;
+        const ctx = this.isFullscreen ? this.nextCtxFS : this.nextCtx;
+        
+        if (!canvas || !ctx) return;
+        
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.8)';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
         
         if (this.nextPiece) {
-            // В полноэкранном режиме используем маленький размер блока
-            const blockSize = this.isFullscreen ? 12 : 25;
-            const offsetX = (this.nextCanvas.width - this.nextPiece.shape[0].length * blockSize) / 2;
-            const offsetY = (this.nextCanvas.height - this.nextPiece.shape.length * blockSize) / 2;
+            // В полноэкранном режиме используем подходящий размер блока
+            const blockSize = this.isFullscreen ? 16 : 25;
+            const offsetX = (canvas.width - this.nextPiece.shape[0].length * blockSize) / 2;
+            const offsetY = (canvas.height - this.nextPiece.shape.length * blockSize) / 2;
             
             for (let y = 0; y < this.nextPiece.shape.length; y++) {
                 for (let x = 0; x < this.nextPiece.shape[y].length; x++) {
                     if (this.nextPiece.shape[y][x]) {
                         this.drawPentagonOnNextCanvas(
-                            this.nextCtx,
+                            ctx,
                             offsetX + x * blockSize,
                             offsetY + y * blockSize,
                             blockSize,
@@ -971,10 +979,10 @@ class PentagonTetris {
         // Обновляем текст кнопки
         fullscreenBtn.innerHTML = '📱 Выйти';
         
-        // Показываем статистику для полноэкранного режима
-        const gameStats = document.querySelector('.game-stats');
-        if (gameStats) {
-            gameStats.style.display = 'block';
+        // Показываем боковую панель для полноэкранного режима
+        const gameSidebar = document.querySelector('.game-sidebar');
+        if (gameSidebar) {
+            gameSidebar.style.display = 'flex';
             this.updateFullscreenStats();
         }
         
@@ -1009,10 +1017,10 @@ class PentagonTetris {
         // Обновляем текст кнопки
         fullscreenBtn.innerHTML = '📺 Полный экран';
         
-        // Скрываем статистику полноэкранного режима
-        const gameStats = document.querySelector('.game-stats');
-        if (gameStats) {
-            gameStats.style.display = 'none';
+        // Скрываем боковую панель полноэкранного режима
+        const gameSidebar = document.querySelector('.game-sidebar');
+        if (gameSidebar) {
+            gameSidebar.style.display = 'none';
         }
         
         // Восстанавливаем размеры canvas
@@ -1058,17 +1066,13 @@ class PentagonTetris {
         // Устанавливаем размеры главного canvas
         this.canvas.width = this.BOARD_WIDTH * this.BLOCK_SIZE;
         this.canvas.height = this.BOARD_HEIGHT * this.BLOCK_SIZE;
-        
-        // Canvas для следующей фигуры в полноэкранном режиме
-        this.nextCanvas.width = 60;
-        this.nextCanvas.height = 60;
     }
     
     showFullscreenHint() {
         // Создаем подсказку о выходе из полноэкранного режима
         const hint = document.createElement('div');
         hint.className = 'fullscreen-exit-hint';
-        hint.innerHTML = '🌟 ПОЛНОЭКРАННЫЙ РЕЖИМ 🌟<br><br>✨ Наслаждайся игрой на весь экран!<br><br>🚪 Выход: кнопка "Выйти" или ESC';
+        hint.innerHTML = 'Полноэкранный режим<br><small>Нажмите "Выйти" или ESC для выхода</small>';
         document.body.appendChild(hint);
         
         hint.style.display = 'block';
