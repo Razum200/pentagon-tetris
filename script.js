@@ -7,8 +7,6 @@ class PentagonTetris {
         this.ctx = this.canvas.getContext('2d');
         this.nextCanvas = document.getElementById('nextCanvas');
         this.nextCtx = this.nextCanvas.getContext('2d');
-        this.nextCanvasFS = document.getElementById('nextCanvasFS');
-        this.nextCtxFS = this.nextCanvasFS ? this.nextCanvasFS.getContext('2d') : null;
         
         this.BOARD_WIDTH = 10;
         this.BOARD_HEIGHT = 16;
@@ -538,26 +536,20 @@ class PentagonTetris {
     }
     
     drawNextPiece() {
-        // Выбираем правильный canvas в зависимости от режима
-        const canvas = this.isFullscreen ? this.nextCanvasFS : this.nextCanvas;
-        const ctx = this.isFullscreen ? this.nextCtxFS : this.nextCtx;
-        
-        if (!canvas || !ctx) return;
-        
-        ctx.fillStyle = 'rgba(0, 0, 0, 0.8)';
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        this.nextCtx.fillStyle = 'rgba(0, 0, 0, 0.8)';
+        this.nextCtx.fillRect(0, 0, this.nextCanvas.width, this.nextCanvas.height);
         
         if (this.nextPiece) {
             // В полноэкранном режиме используем подходящий размер блока
-            const blockSize = this.isFullscreen ? 16 : 25;
-            const offsetX = (canvas.width - this.nextPiece.shape[0].length * blockSize) / 2;
-            const offsetY = (canvas.height - this.nextPiece.shape.length * blockSize) / 2;
+            const blockSize = this.isFullscreen ? 20 : 25;
+            const offsetX = (this.nextCanvas.width - this.nextPiece.shape[0].length * blockSize) / 2;
+            const offsetY = (this.nextCanvas.height - this.nextPiece.shape.length * blockSize) / 2;
             
             for (let y = 0; y < this.nextPiece.shape.length; y++) {
                 for (let x = 0; x < this.nextPiece.shape[y].length; x++) {
                     if (this.nextPiece.shape[y][x]) {
                         this.drawPentagonOnNextCanvas(
-                            ctx,
+                            this.nextCtx,
                             offsetX + x * blockSize,
                             offsetY + y * blockSize,
                             blockSize,
@@ -998,12 +990,8 @@ class PentagonTetris {
         // Обновляем текст кнопки
         fullscreenBtn.innerHTML = '📱 Выйти';
         
-        // Показываем боковую панель для полноэкранного режима
-        const gameSidebar = document.querySelector('.game-sidebar');
-        if (gameSidebar) {
-            gameSidebar.style.display = 'flex';
-            this.updateFullscreenStats();
-        }
+        // Обновляем статистику для полноэкранного режима
+        this.updateFullscreenStats();
         
         // Показываем подсказку
         this.showFullscreenHint();
@@ -1036,11 +1024,7 @@ class PentagonTetris {
         // Обновляем текст кнопки
         fullscreenBtn.innerHTML = '📺 Полный экран';
         
-        // Скрываем боковую панель полноэкранного режима
-        const gameSidebar = document.querySelector('.game-sidebar');
-        if (gameSidebar) {
-            gameSidebar.style.display = 'none';
-        }
+        // Боковая панель остается видимой в обычном режиме
         
         // Восстанавливаем размеры canvas
         this.adaptToScreen();
@@ -1071,9 +1055,9 @@ class PentagonTetris {
         const screenWidth = window.innerWidth;
         const screenHeight = window.innerHeight;
         
-        // Учитываем место для боковой панели (200px) + отступы
-        const maxCanvasWidth = screenWidth - 220; // Ширина для canvas
-        const maxCanvasHeight = screenHeight - 80; // Высота для canvas
+        // Учитываем место для боковой панели (240px) + отступы (70px)
+        const maxCanvasWidth = screenWidth - 310; 
+        const maxCanvasHeight = screenHeight - 80; 
         
         // Вычисляем размер блока
         const blockSizeByWidth = Math.floor(maxCanvasWidth / this.BOARD_WIDTH);

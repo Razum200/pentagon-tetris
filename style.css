@@ -98,12 +98,45 @@ h1 {
     font-weight: bold;
 }
 
+/* Обычный режим */
 .game-area {
     display: flex;
     gap: 20px;
     justify-content: center;
     align-items: flex-start;
     margin-bottom: 20px;
+}
+
+.game-main {
+    display: flex;
+    justify-content: center;
+}
+
+.game-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    min-width: 200px;
+}
+
+.game-stats-sidebar {
+    background: var(--tg-theme-secondary-bg-color, rgba(255, 255, 255, 0.1));
+    border-radius: 10px;
+    padding: 15px;
+    border: 1px solid var(--tg-theme-hint-color, #ddd);
+}
+
+.game-stats-sidebar p {
+    margin: 8px 0;
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.game-stats-sidebar span {
+    color: var(--tg-theme-accent-text-color, #007AFF);
+    font-size: 1.1em;
 }
 
 #gameCanvas {
@@ -351,7 +384,7 @@ button:disabled {
     height: 100vh !important;
     background: linear-gradient(135deg, #0a0a1a, #1a1a2e) !important;
     z-index: 9999 !important;
-    padding: 10px !important;
+    padding: 15px !important;
     box-sizing: border-box !important;
     overflow: hidden !important;
     display: flex !important;
@@ -360,14 +393,30 @@ button:disabled {
 }
 
 .fullscreen-mode .game-area {
-    position: relative !important;
     display: flex !important;
-    justify-content: center !important;
-    align-items: flex-start !important;
+    gap: 20px !important;
     width: 100% !important;
     height: 100% !important;
-    max-width: 900px !important;
-    gap: 15px !important;
+    max-width: 1000px !important;
+    justify-content: center !important;
+    align-items: flex-start !important;
+    margin: 0 !important;
+}
+
+.fullscreen-mode .game-main {
+    flex-shrink: 0 !important;
+}
+
+.fullscreen-mode .game-sidebar {
+    width: 200px !important;
+    flex-shrink: 0 !important;
+    background: rgba(0, 0, 0, 0.8) !important;
+    border: 1px solid #444 !important;
+    border-radius: 10px !important;
+    padding: 15px !important;
+    height: fit-content !important;
+    max-height: calc(100vh - 100px) !important;
+    overflow-y: auto !important;
 }
 
 .fullscreen-mode #gameCanvas {
@@ -376,61 +425,69 @@ button:disabled {
     border: 2px solid #333 !important;
     border-radius: 8px !important;
     background: #000 !important;
-    flex-shrink: 0 !important;
-}
-
-/* Боковая панель в полноэкранном режиме */
-.fullscreen-mode .game-sidebar {
-    display: flex !important;
-    flex-direction: column !important;
-    width: 180px !important;
-    height: calc(100vh - 80px) !important;
-    background: rgba(0, 0, 0, 0.9) !important;
-    border: 1px solid #444 !important;
-    border-radius: 8px !important;
-    padding: 12px !important;
-    color: white !important;
-    font-size: 13px !important;
-    flex-shrink: 0 !important;
-    overflow-y: auto !important;
 }
 
 .fullscreen-mode .next-piece {
-    position: relative !important;
-    top: auto !important;
-    right: auto !important;
-    width: 100% !important;
-    height: auto !important;
     background: rgba(20, 20, 40, 0.8) !important;
-    border: 1px solid #444 !important;
-    border-radius: 5px !important;
+    border: 1px solid #555 !important;
+    border-radius: 8px !important;
     padding: 10px !important;
     margin-bottom: 15px !important;
 }
 
 .fullscreen-mode .next-piece h3 {
-    font-size: 0.9em !important;
-    margin: 0 0 8px 0 !important;
-    text-align: center !important;
     color: #ccc !important;
-    font-weight: bold !important;
+    font-size: 0.9em !important;
+    margin: 0 0 10px 0 !important;
+    text-align: center !important;
 }
 
 .fullscreen-mode .next-piece #nextCanvas {
-    width: 80px !important;
-    height: 80px !important;
-    margin: 0 auto !important;
     display: block !important;
-    border: 1px solid #555 !important;
-    border-radius: 3px !important;
+    margin: 0 auto !important;
+    border: 1px solid #666 !important;
+    border-radius: 4px !important;
     background: #000 !important;
 }
+
+.fullscreen-mode .game-stats-sidebar {
+    background: rgba(20, 20, 40, 0.8) !important;
+    border: 1px solid #555 !important;
+    border-radius: 8px !important;
+    padding: 12px !important;
+}
+
+.fullscreen-mode .game-stats-sidebar p {
+    color: #ccc !important;
+    font-size: 0.9em !important;
+    margin: 8px 0 !important;
+    display: flex !important;
+    justify-content: space-between !important;
+}
+
+.fullscreen-mode .game-stats-sidebar span {
+    color: #00ff88 !important;
+    font-weight: bold !important;
+}
+
+
+
+
 
 .fullscreen-mode .game-settings,
 .fullscreen-mode .game-info,
 .fullscreen-mode .controls,
 .fullscreen-mode .help-button {
     display: none !important;
+}
+
+/* В обычном режиме скрываем полноэкранную статистику */
+.game-stats-sidebar {
+    display: none;
+}
+
+.fullscreen-mode .game-stats-sidebar {
+    display: block !important;
 }
 
 .fullscreen-mode .game-stats {

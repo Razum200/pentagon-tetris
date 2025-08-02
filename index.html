@@ -40,20 +40,18 @@
             <div class="lines">Линии: <span id="lines">0</span></div>
         </div>
         <div class="game-area">
-            <canvas id="gameCanvas" width="400" height="640"></canvas>
-            <div class="next-piece">
-                <h3>Следующая фигура:</h3>
-                <canvas id="nextCanvas" width="120" height="120"></canvas>
+            <div class="game-main">
+                <canvas id="gameCanvas" width="400" height="640"></canvas>
             </div>
-            <div class="game-sidebar" style="display: none;">
+            <div class="game-sidebar">
                 <div class="next-piece">
-                    <h3>СЛЕДУЮЩАЯ</h3>
-                    <canvas id="nextCanvasFS" width="80" height="80"></canvas>
+                    <h3>Следующая фигура:</h3>
+                    <canvas id="nextCanvas" width="120" height="120"></canvas>
                 </div>
-                <div class="game-stats">
-                    <p>ОЧКИ <span id="scoreFS">0</span></p>
-                    <p>УРОВЕНЬ <span id="levelFS">1</span></p>
-                    <p>ЛИНИИ <span id="linesFS">0</span></p>
+                <div class="game-stats-sidebar">
+                    <p>ОЧКИ: <span id="scoreFS">0</span></p>
+                    <p>УРОВЕНЬ: <span id="levelFS">1</span></p>
+                    <p>ЛИНИИ: <span id="linesFS">0</span></p>
                 </div>
             </div>
         </div>
