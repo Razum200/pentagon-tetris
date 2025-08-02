@@ -29,6 +29,7 @@ class PentagonTetris {
         this.dropInterval = 1000; // миллисекунды
         this.chaosMode = false;
         this.chaosBlocks = []; // Хранит информацию о хаотичных блоках
+        this.isFullscreen = false;
         this.difficultySettings = {
             easy: { speed: 1500, scoreMultiplier: 0.5 },
             normal: { speed: 1000, scoreMultiplier: 1 },
@@ -701,6 +702,12 @@ class PentagonTetris {
             shareBtn.addEventListener('click', () => this.shareResult());
         }
         
+        // Кнопка полноэкранного режима
+        const fullscreenBtn = document.getElementById('fullscreenBtn');
+        if (fullscreenBtn) {
+            fullscreenBtn.addEventListener('click', () => this.toggleFullscreen());
+        }
+        
         // Мобильные кнопки управления
         this.setupMobileControls();
         
@@ -927,6 +934,120 @@ class PentagonTetris {
             this.longPressInterval = null;
         }
         this.longPressActive = false;
+    }
+    
+    toggleFullscreen() {
+        const gameContainer = document.querySelector('.game-container');
+        const fullscreenBtn = document.getElementById('fullscreenBtn');
+        
+        if (!this.isFullscreen) {
+            this.enterFullscreen(gameContainer, fullscreenBtn);
+        } else {
+            this.exitFullscreen(gameContainer, fullscreenBtn);
+        }
+    }
+    
+    enterFullscreen(gameContainer, fullscreenBtn) {
+        // Добавляем класс полноэкранного режима
+        gameContainer.classList.add('fullscreen-mode');
+        this.isFullscreen = true;
+        
+        // Обновляем текст кнопки
+        fullscreenBtn.innerHTML = '📱 Выйти';
+        
+        // Показываем подсказку
+        this.showFullscreenHint();
+        
+        // Адаптируем размеры canvas
+        this.adaptToFullscreen();
+        
+        // Пытаемся включить нативный полноэкранный режим браузера
+        if (gameContainer.requestFullscreen) {
+            gameContainer.requestFullscreen().catch(() => {
+                // Игнорируем ошибки, наш CSS полноэкранный режим все равно работает
+            });
+        } else if (gameContainer.webkitRequestFullscreen) {
+            gameContainer.webkitRequestFullscreen().catch(() => {});
+        } else if (gameContainer.mozRequestFullScreen) {
+            gameContainer.mozRequestFullScreen().catch(() => {});
+        }
+        
+        // Обработчик выхода из полноэкранного режима через ESC
+        document.addEventListener('fullscreenchange', this.handleFullscreenChange.bind(this));
+        document.addEventListener('webkitfullscreenchange', this.handleFullscreenChange.bind(this));
+        document.addEventListener('mozfullscreenchange', this.handleFullscreenChange.bind(this));
+    }
+    
+    exitFullscreen(gameContainer, fullscreenBtn) {
+        // Убираем класс полноэкранного режима
+        gameContainer.classList.remove('fullscreen-mode');
+        this.isFullscreen = false;
+        
+        // Обновляем текст кнопки
+        fullscreenBtn.innerHTML = '📺 Полный экран';
+        
+        // Восстанавливаем размеры canvas
+        this.adaptToScreen();
+        
+        // Выходим из нативного полноэкранного режима
+        if (document.exitFullscreen) {
+            document.exitFullscreen().catch(() => {});
+        } else if (document.webkitExitFullscreen) {
+            document.webkitExitFullscreen().catch(() => {});
+        } else if (document.mozCancelFullScreen) {
+            document.mozCancelFullScreen().catch(() => {});
+        }
+    }
+    
+    handleFullscreenChange() {
+        // Если пользователь вышел из полноэкранного режима через ESC
+        if (!document.fullscreenElement && !document.webkitFullscreenElement && !document.mozFullScreenElement) {
+            if (this.isFullscreen) {
+                const gameContainer = document.querySelector('.game-container');
+                const fullscreenBtn = document.getElementById('fullscreenBtn');
+                this.exitFullscreen(gameContainer, fullscreenBtn);
+            }
+        }
+    }
+    
+    adaptToFullscreen() {
+        // Адаптируем размеры canvas для полноэкранного режима
+        const screenWidth = window.innerWidth;
+        const screenHeight = window.innerHeight;
+        
+        // Вычисляем оптимальный размер блока для полноэкранного режима
+        const maxCanvasWidth = screenWidth * 0.9;
+        const maxCanvasHeight = screenHeight * 0.7;
+        
+        const blockSizeByWidth = Math.floor(maxCanvasWidth / this.BOARD_WIDTH);
+        const blockSizeByHeight = Math.floor(maxCanvasHeight / this.BOARD_HEIGHT);
+        
+        this.BLOCK_SIZE = Math.min(blockSizeByWidth, blockSizeByHeight, 50); // Максимум 50px
+        
+        this.canvas.width = this.BOARD_WIDTH * this.BLOCK_SIZE;
+        this.canvas.height = this.BOARD_HEIGHT * this.BLOCK_SIZE;
+        
+        // Адаптируем canvas для следующей фигуры
+        const nextSize = Math.floor(this.BLOCK_SIZE * 0.6);
+        this.nextCanvas.width = nextSize * 4;
+        this.nextCanvas.height = nextSize * 4;
+    }
+    
+    showFullscreenHint() {
+        // Создаем подсказку о выходе из полноэкранного режима
+        const hint = document.createElement('div');
+        hint.className = 'fullscreen-exit-hint';
+        hint.innerHTML = '📱 Полноэкранный режим<br><small>Нажми кнопку "Выйти" или ESC для выхода</small>';
+        document.body.appendChild(hint);
+        
+        hint.style.display = 'block';
+        
+        // Убираем подсказку через 3 секунды
+        setTimeout(() => {
+            if (hint.parentNode) {
+                hint.parentNode.removeChild(hint);
+            }
+        }, 3000);
     }
 }
 

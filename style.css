@@ -311,3 +311,90 @@ button:disabled {
         margin-bottom: 10px;
     }
 }
+
+/* Полноэкранный режим */
+.fullscreen-mode {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    background: linear-gradient(135deg, #1e3c72, #2a5298) !important;
+    z-index: 9999 !important;
+    padding: 10px !important;
+    box-sizing: border-box !important;
+    overflow: hidden !important;
+}
+
+.fullscreen-mode .game-area {
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 10px !important;
+    height: calc(100vh - 140px) !important;
+    justify-content: center !important;
+}
+
+.fullscreen-mode #gameCanvas {
+    max-width: 90vw !important;
+    max-height: 70vh !important;
+    width: auto !important;
+    height: auto !important;
+}
+
+.fullscreen-mode .next-piece {
+    order: -1 !important;
+    margin-bottom: 0 !important;
+    min-width: auto !important;
+}
+
+.fullscreen-mode .game-settings,
+.fullscreen-mode .game-info {
+    display: none !important;
+}
+
+.fullscreen-mode .controls {
+    display: none !important;
+}
+
+.fullscreen-mode .mobile-controls {
+    display: block !important;
+    position: fixed !important;
+    bottom: 10px !important;
+    left: 10px !important;
+    right: 10px !important;
+    margin: 0 !important;
+    background: rgba(0, 0, 0, 0.7) !important;
+}
+
+.fullscreen-mode .game-buttons {
+    position: fixed !important;
+    top: 10px !important;
+    right: 10px !important;
+    flex-direction: column !important;
+    gap: 5px !important;
+}
+
+.fullscreen-mode .game-buttons button {
+    padding: 8px 12px !important;
+    font-size: 0.9em !important;
+}
+
+.fullscreen-exit-hint {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    z-index: 10000;
+    display: none;
+    animation: fadeInOut 3s ease-in-out;
+}
+
+@keyframes fadeInOut {
+    0%, 100% { opacity: 0; }
+    20%, 80% { opacity: 1; }
+}
