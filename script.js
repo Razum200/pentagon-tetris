@@ -782,6 +782,9 @@ class PentagonTetris {
             }
         });
         
+        // Сенсорное управление на игровом поле
+        this.setupTouchControls();
+        
         // Обработка изменения ориентации экрана
         window.addEventListener('orientationchange', () => {
             setTimeout(() => this.adaptToScreen(), 100);
@@ -791,6 +794,139 @@ class PentagonTetris {
         window.addEventListener('resize', () => {
             this.adaptToScreen();
         });
+    }
+    
+    setupTouchControls() {
+        if (!this.canvas) return;
+        
+        let touchStartX = 0;
+        let touchStartY = 0;
+        let touchStartTime = 0;
+        let longPressTimer = null;
+        let touchMoved = false;
+        
+        // Параметры для свайпов
+        const minSwipeDistance = 50; // минимальная дистанция для свайпа
+        const maxSwipeTime = 500; // максимальное время для свайпа (мс)
+        const longPressTime = 500; // время для долгого нажатия (мс)
+        
+        // Начало касания
+        this.canvas.addEventListener('touchstart', (e) => {
+            if (!this.gameRunning || this.isPaused) return;
+            
+            e.preventDefault();
+            const touch = e.touches[0];
+            touchStartX = touch.clientX;
+            touchStartY = touch.clientY;
+            touchStartTime = Date.now();
+            touchMoved = false;
+            
+            // Таймер для долгого нажатия (ускорение падения)
+            longPressTimer = setTimeout(() => {
+                if (!touchMoved) {
+                    this.startLongPress();
+                }
+            }, longPressTime);
+        }, { passive: false });
+        
+        // Движение пальца
+        this.canvas.addEventListener('touchmove', (e) => {
+            e.preventDefault();
+            const touch = e.touches[0];
+            const moveX = Math.abs(touch.clientX - touchStartX);
+            const moveY = Math.abs(touch.clientY - touchStartY);
+            
+            // Если палец сдвинулся достаточно далеко, это не тап
+            if (moveX > 10 || moveY > 10) {
+                touchMoved = true;
+                if (longPressTimer) {
+                    clearTimeout(longPressTimer);
+                    longPressTimer = null;
+                }
+            }
+        }, { passive: false });
+        
+        // Конец касания
+        this.canvas.addEventListener('touchend', (e) => {
+            if (!this.gameRunning || this.isPaused) return;
+            
+            e.preventDefault();
+            
+            if (longPressTimer) {
+                clearTimeout(longPressTimer);
+                longPressTimer = null;
+            }
+            
+            this.stopLongPress();
+            
+            const touch = e.changedTouches[0];
+            const touchEndX = touch.clientX;
+            const touchEndY = touch.clientY;
+            const touchEndTime = Date.now();
+            
+            const deltaX = touchEndX - touchStartX;
+            const deltaY = touchEndY - touchStartY;
+            const deltaTime = touchEndTime - touchStartTime;
+            
+            const absX = Math.abs(deltaX);
+            const absY = Math.abs(deltaY);
+            
+            // Проверяем, был ли это свайп
+            if (deltaTime <= maxSwipeTime && (absX >= minSwipeDistance || absY >= minSwipeDistance)) {
+                // Определяем направление свайпа
+                if (absX > absY) {
+                    // Горизонтальный свайп
+                    if (deltaX > 0) {
+                        // Свайп вправо
+                        this.movePiece(1, 0);
+                    } else {
+                        // Свайп влево
+                        this.movePiece(-1, 0);
+                    }
+                } else {
+                    // Вертикальный свайп
+                    if (deltaY > 0) {
+                        // Свайп вниз - ускорение падения
+                        this.movePiece(0, 1);
+                    } else {
+                        // Свайп вверх - жёсткое падение
+                        while (this.canMovePiece(this.currentPiece, 0, 1)) {
+                            this.movePiece(0, 1);
+                        }
+                    }
+                }
+            } else if (!touchMoved && deltaTime < 300) {
+                // Быстрый тап - поворот фигуры
+                const rotated = this.rotatePiece(this.currentPiece);
+                if (this.canMovePiece(this.currentPiece, 0, 0, rotated)) {
+                    this.currentPiece.shape = rotated;
+                }
+            }
+        }, { passive: false });
+        
+        // Предотвращаем стандартные жесты браузера
+        this.canvas.addEventListener('gesturestart', (e) => e.preventDefault());
+        this.canvas.addEventListener('gesturechange', (e) => e.preventDefault());
+        this.canvas.addEventListener('gestureend', (e) => e.preventDefault());
+    }
+    
+    startLongPress() {
+        // Начинаем ускоренное падение
+        this.longPressActive = true;
+        this.longPressInterval = setInterval(() => {
+            if (this.gameRunning && !this.isPaused) {
+                this.movePiece(0, 1);
+            }
+        }, 100);
+    }
+    
+    stopLongPress() {
+        // Останавливаем ускоренное падение
+        if (this.longPressInterval) {
+            clearInterval(this.longPressInterval);
+            this.longPressInterval = null;
+        }
+        this.longPressActive = false;
     }
 }
 

@@ -154,6 +154,19 @@ h1 {
     font-size: 0.9em;
 }
 
+.control-section {
+    margin-bottom: 15px;
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+}
+
+.control-section h4 {
+    margin: 0 0 8px 0;
+    font-size: 1em;
+    color: var(--tg-theme-link-color, #4ecdc4);
+}
+
 button {
     background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
     color: white;
