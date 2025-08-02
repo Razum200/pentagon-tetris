@@ -1,0 +1,17 @@
+{
+  "name": "Пятиугольный Тетрис",
+  "short_name": "Pentagon Tetris",
+  "description": "Уникальный Тетрис с пятиугольными блоками и режимом хаос",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#1e3c72",
+  "theme_color": "#2a5298",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTkyIiBoZWlnaHQ9IjE5MiIgdmlld0JveD0iMCAwIDE5MiAxOTIiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIxOTIiIGhlaWdodD0iMTkyIiBmaWxsPSIjMmE1Mjk4Ii8+Cjxwb2x5Z29uIHBvaW50cz0iOTYsNDAgMTM2LDY0IDEyMCwxMDQgNzIsMTA0IDU2LDY0IiBmaWxsPSIjZmY2YjZiIi8+Cjxwb2x5Z29uIHBvaW50cz0iOTYsODggMTM2LDExMiAxMjAsMTUyIDcyLDE1MiA1NiwxMTIiIGZpbGw9IiM0ZWNkYzQiLz4KPC9zdmc+",
+      "sizes": "192x192",
+      "type": "image/svg+xml"
+    }
+  ]
+}
